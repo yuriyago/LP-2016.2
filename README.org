@@ -1,0 +1,24 @@
+#+Title: Curso de LP
+#+Author: Alexandre Rademaker
+
+Curso de Linguagens de Programação EMAp/FGV
+
+* Livro 
+
+- https://mitpress.mit.edu/sicp/
+
+Outros:
+
+- http://www.gigamonkeys.com/book/
+- http://norvig.com/paip.html
+- http://landoflisp.com
+
+* Links
+
+- Emacs :: http://ibm.co/2a9Whzb
+
+* Why Lisp?
+
+- http://www.gigamonkeys.com/book/introduction-why-lisp.html
+- http://www.paulgraham.com/avg.html
+

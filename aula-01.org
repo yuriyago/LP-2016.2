@@ -1,0 +1,30 @@
+#+Title: Aula 01
+
+Falamos sobre o curso, avaliação, participação dos alunos, controle de
+faltas etc.
+
+Comecei o livro SICP, falamos até seção 1.1.6. Deixei como sugestão
+para os alunos a leitura das seções vistas e tentativa de ler e fazer
+exercícios da seção 1.1.7.
+
+O conteúdo abaixo é o mesmo do arquivo =aula-01.rkt=.
+
+#+BEGIN_SRC scheme
+  #lang racket
+
+  (define (teste-soma-! a b)
+    (+ a b))
+
+  (+ (* 3 (+ (* 2 4)
+             (+ 3 5)))
+     (+ (- 10 7) 6))
+
+  (define size 2)
+
+
+  (define (square x)
+    (* x x))
+
+  (define (sum-of-squares x y)
+    (+ (square x) (square y)))
+#+END_SRC
