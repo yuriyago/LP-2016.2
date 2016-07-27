@@ -21,7 +21,6 @@ O conteúdo abaixo é o mesmo do arquivo =aula-01.rkt=.
 
   (define size 2)
 
-
   (define (square x)
     (* x x))
 

@@ -1,0 +1,117 @@
+#+Title: Aula 02
+
+* Formas Especiais
+
+/Formas Especiais/ são formas com um método de avaliação
+específico. Vimos =define=, =cond=, =if=, =and= e =or=.
+
+A tentativa de definir =new-if= mostra que =if= é uma /forma
+especial/. No código abaixo, a última forma, quando avaliada, provoca
+um erro. Ou seja, =if= não pode ser definida como uma função regular,
+é uma /forma especial/ com uma semântica de avaliação particular.
+
+#+BEGIN_SRC scheme
+(define (new-if predicate then-clause else-clause)
+  (cond (predicate then-clause)
+        (else else-clause)))
+
+(if (< 0 10) 1 (/ 10 0))
+
+(new-if (< 0 10) 1 (/ 10 0))
+#+END_SRC
+
+* Abstrações
+
+Quando definimos uma função, estamos criando uma abstração. Os
+/usuários/ da função =square= não precisam saber como ela calcula o
+quadrado de um número. Os /parâmetros/ são os argumentos da função, no
+corpo da função as referências aos parâmetros estão /ligadas/. Mas na
+função =sum-of-squares=, notamos que embora as referências à =x= e =y=
+estejam /ligadas/ aos parâmetros da função, os símbolos =square= e =+=
+estão /livres/, a função espera que eles estejam definidos no ambiente
+onde a função está sendo declarada.
+
+#+BEGIN_SRC scheme
+(define (square x) (* x x))
+
+(define (sum-of-squares x y)
+  (+ (square x) (square y)))
+
+(define (f a)
+  (sum-of-squares (+ a 1) (* a 2)))
+#+END_SRC
+
+A forma normal de avaliação das /formas/ de Racket/Scheme é avaliar os
+argumentos e então aplicar a função. Alternativamente, poderia-se
+pensar em expandir primeiro as expressões e depois reduzir para
+valores.
+
+No código seguinte, a função =p= é uma função recursiva que não
+para. O exemplo serve para mostrar que os diferentes métodos de
+avaliação descritos no parágrafo anterior podem produzir resultados
+diferentes.
+
+#+BEGIN_SRC scheme
+(define (p) (p))
+
+(define (test x y)
+  (if (= x 0) 0 y))
+
+(define (a-plus-abs-b a b)
+  ((if (> b 0) + -) a b))
+#+END_SRC
+
+* Raiz Quadrada e o Método de Newton
+
+A função abaixo implementa o método de Newton para calcular a raiz
+quadrada de um número. Detaca-se a criação de abstrações diferentes
+(funções) para cada parte fundamental do algorítmo. Temos a função
+=good-enough?= (que por retornar sempre =true= ou =false= chamaremos
+de /predicado/), a função =improve= responsável por a cada iteração
+melhorar o /chute/ da raiz, e a função =sqrt-iter= que efetivamente
+implementa o /loop/ que tenta a cada etapa melhorar o /chute/ até ter
+um valor próximo o suficiente da raiz desejada.
+
+#+BEGIN_SRC scheme
+(define (square x) (* x x))
+
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (improve guess x)
+  (average guess (/ x guess)))
+
+(define (good-enough? guess x)
+  (< (abs (- (square guess) x)) 0.001))
+
+(define (sqrt-iter guess x)
+  (if (good-enough? guess x)
+      guess
+      (sqrt-iter (improve guess x)
+                 x)))
+
+(define (sqrt x)
+  (sqrt-iter 1.0 x))
+#+END_SRC
+
+A função =good-enough?= não é boa para valores muito pequenos nem para
+valores muito grandes. Por que? Para valores grandes, o preço que
+pagamos para calcular =(square guess)= é bem alto, dado que o
+resultado desta avaliação pode ser um valor tão grande quanto o valor
+entrada, exigindo o dobro da memória na computação da raiz. Para
+valores pequenos, o que ocorre? Experimentem as chamadas:
+
+#+BEGIN_SRC scheme
+(sqrt 0.00005)
+(sqrt 0.99999)
+#+END_SRC
+
+* Exercícios
+
+- Melhorar a função =good=enough?= como proposto no livro (exercício
+  1.7).
+
+- Adaptar as funções acima para que além de retornar a raiz de um
+  número, =sqrt= também retorne o número de interações necessárias
+  para calcular a raiz.
+
