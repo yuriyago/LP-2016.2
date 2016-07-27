@@ -22,3 +22,10 @@ Outros:
 - http://www.gigamonkeys.com/book/introduction-why-lisp.html
 - http://www.paulgraham.com/avg.html
 
+* Ferramentas
+
+- http://racket-lang.org
+- https://emacsformacosx.com
+
+
+
