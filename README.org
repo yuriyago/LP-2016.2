@@ -3,7 +3,7 @@
 
 Curso de Linguagens de Programação EMAp/FGV
 
-* Livro 
+* Livros
 
 - https://mitpress.mit.edu/sicp/
 
@@ -12,6 +12,10 @@ Outros:
 - http://www.gigamonkeys.com/book/
 - http://norvig.com/paip.html
 - http://landoflisp.com
+
+Leituras recomendadas:
+
+- https://mitpress.mit.edu/books/computer-boys-take-over
 
 * Links
 

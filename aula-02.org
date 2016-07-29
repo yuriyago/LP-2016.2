@@ -115,3 +115,32 @@ valores pequenos, o que ocorre? Experimentem as chamadas:
   número, =sqrt= também retorne o número de interações necessárias
   para calcular a raiz.
 
+* Soluções
+
+Observem o uso de =list= para retornar uma lista de valores. Notem
+ainda o argumento =inters= que armazena o número de interações
+executadas. Código enviado pelo Henrique e ajustado por mim.
+
+#+BEGIN_SRC scheme
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (improve guess x)
+  (average guess (/ x guess)))
+
+(define (good-enough? new-guess old-guess)
+  (< (abs (- new-guess old-guess)) 0.001))
+
+(define (sqrt-iter x guess old-guess inters)
+  (if (good-enough? guess old-guess)
+      (list guess inters)
+      (sqrt-iter x (improve guess x) guess (+ 1 inters))))
+
+(define (sqrt x)
+  (sqrt-iter x (improve 1.0 x) 1.0 0))
+#+END_SRC
+
+Discutimos a diferença na performance da expressão =(- new-guess
+old-guess)=, linear no número de algarismos de =new-guess= e
+=old-guess=, com a expressão =(* x x)=, quadrática no número de
+algarismos de =x=.

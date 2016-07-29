@@ -1,0 +1,159 @@
+#+Title: Aula 03
+
+Encapsulamento das função auxiliares é uma forma de manter o código
+mais organizado e de fácil entendimento. Notem que =good-enough?= é um
+nome muito pouco informativo fora do contexto específico como função
+auxiliar de =sqrt=. Não queremos que nenhuma outra função, além de
+=sqrt=, dependa ou use =good-enough?=. Mas =average=, por outro lado,
+parece claramente independente de =sqrt=.
+
+Finalmente, nota-se que o parâmetro =x= não precisa ser passado
+explicitamente para =improve= ou =sqrt-iter=. Afinal, para =sqrt-iter=
+ele só era passado para que esta pudesse passar ele para
+=improve=. Como nenhuma função altera o valor de =x= e agora que as
+funções estão sendo definidas no corpo de =sqrt=, contexto léxico
+delas, o =x= usado por =improve= irá referir-se ao =x= do parâmetro
+passado para =sqrt=.
+
+#+BEGIN_SRC scheme
+#lang racket
+
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (sqrt x)
+  (define (improve guess)
+    (average guess (/ x guess)))
+  
+  (define (good-enough? new-guess old-guess)
+    (< (abs (- new-guess old-guess)) 0.001))
+
+  (define (sqrt-iter guess old-guess inters)
+    (if (good-enough? guess old-guess)
+        (list guess inters)
+        (sqrt-iter (improve guess) guess (+ 1 inters))))
+  
+  (sqrt-iter x (improve 1.0 x) 1.0 0))
+#+END_SRC
+
+Uma primeira implementação de fatorial é apresenta a seguir. A função
+é sintáticamente recursiva, isto é, seu corpo faz referência a própria
+função sendo definida. Além disso, a execução desta função também
+executa um processo recursivo, as chamadas devem ser encadeadas e o
+valor final é computado após uma sequência de expansões seguidas de
+sequências de redução:
+
+#+BEGIN_SRC scheme
+  (define (factorial n)
+    (if (= n 1)
+        1
+        (* n (factorial (- n 1)))))
+#+END_SRC
+
+Uma versão ainda sintaticamente recursiva pode ter um processamento
+interativo, não recursivo:
+
+#+BEGIN_SRC scheme
+  (define (factorial n)
+    (fact-iter 1 1 n))
+
+  (define (fact-iter product counter max-count)
+    (if (> counter max-count)
+        product
+        (fact-iter (* counter product)
+                   (+ counter 1)
+                   max-count)))
+#+END_SRC
+
+No código acima, =fact-iter= é uma função /recursiva de cauda/, a
+chamada recursiva é retornada imediatamente, sem nenhum processamento
+seguinte. Isto significa que esta função pode ser otimizada pelo
+compilador ou interpretador e transformada em um /loop/
+simples. Nenhuma memória é necessária para armazenar estágios
+intermediários da computação para que o contexto seja capturado.
+
+A versão final de =factorial= poderia, assim como fizemos com =sqrt=,
+encapsular as funções auxiliares.
+
+#+BEGIN_SRC scheme
+  (define (factorial n)
+    (define (fact-iter product counter)
+      (if (> counter n)
+          product
+          (fact-iter (* counter product)
+                     (+ counter 1)
+                     n)))
+  
+    (fact-iter 1 1 n))
+#+END_SRC
+
+Processos também podem ter uma recursão em árvore, neste caso, cada
+chamada de =fib= inicia duas novas chamadas de =fib=. Definitivamente,
+este não é um bom algorítmo para implementar Fibonnaci dado a
+repetição de computações desnecessárias.
+
+#+BEGIN_SRC scheme
+(define (fib n)
+  (cond ((= n 0) 0)
+        ((= n 1) 1)
+        (else (+ (fib (- n 1))
+                 (fib (- n 2))))))
+#+END_SRC
+
+Mas também podemos reescrever a função =fib= como abaixo, ainda de
+forma recursiva, mas que executa um processo interativo. As chamadas
+de =fib-iter= não precisam armazenar nenhum tipo de /pilha/ de memória
+para recuperar o contexto no retorno da chamada recursiva, nenhuma
+computação fica pendente de ser executada quando quando =fib-iter=
+retorna seu valor. Este é um outro exemplo de /recursão de cauda/ que
+pode ser otimizado pelo compilador ou interpretador em um loop.
+
+#+BEGIN_SRC scheme
+(define (fib n)
+  (fib-iter 1 0 n))
+
+(define (fib-iter a b count)
+  (if (= count 0)
+      b
+      (fib-iter (+ a b) a (- count 1))))
+#+END_SRC
+
+* Common Lisp
+
+Em Common Lisp, rodando [[http://www.sbcl.org][SBCL]], podemos fazer o /trace/ da execução das
+funções usando =(trace fact-iter)=. As funções tiveram que ser
+adaptadas de Scheme/Racket para Common Lisp.
+
+#+BEGIN_SRC lisp
+(defun fact-iter (product counter max-count)
+  (if (> counter max-count)
+      product
+      (fact-iter (* counter product)
+                 (+ counter 1)
+                 max-count)))
+
+(defun factorial (n)
+  (fact-iter 1 1 n))
+
+(defun fib (n)
+  (cond ((= n 0) 0)
+        ((= n 1) 1)
+        (t (+ (fib (- n 1))
+	      (fib (- n 2))))))
+#+END_SRC
+
+* Exercícios
+
+- Experimentar o botão /Check Syntax/ no DrRacket com o código de
+  =sqrt=, após clicar neste botão, passem o mouse sobre o parâmetro
+  =x=.
+
+- Ler as seções do livro já apresentadas (seção 1.1) e adiantar
+  leitura das seções 1.2 e 1.3.
+
+- Exercícios do livro até seção 1.2.2.
+
+- Na seção 1.1.8 foi apresentada uma implementação alternativa para
+  =square=, enfatizando-se a vantagem do encapsulamento de códigos em
+  funções, você consegue pensar em mais alguma forma de implementar
+  =square=?
