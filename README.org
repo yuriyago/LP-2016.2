@@ -17,19 +17,21 @@ Leituras recomendadas:
 
 - https://mitpress.mit.edu/books/computer-boys-take-over
 
-* Links
+* Emacs
 
-- Emacs :: http://ibm.co/2a9Whzb
+- http://ibm.co/2a9Whzb 
+- http://bit.ly/2aEGFjI 
+- http://emacsrocks.com
 
-* Why Lisp?
+* Leituras interessantes
 
-- http://www.gigamonkeys.com/book/introduction-why-lisp.html
-- http://www.paulgraham.com/avg.html
+- [[http://www.gigamonkeys.com/book/introduction-why-lisp.html][Why Lisp?]]
+- [[http://www.paulgraham.com/avg.html][Beating the Averages]]
+- [[http://www.paulgraham.com/rootsoflisp.html][The Roots of Lisp]]
+- [[http://www.paulgraham.com/diff.html][What made Lisp different]]
 
 * Ferramentas
 
 - http://racket-lang.org
 - https://emacsformacosx.com
-
-
-
+- https://learnxinyminutes.com/docs/racket/
