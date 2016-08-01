@@ -1,0 +1,20 @@
+#+Title: Aula 04
+
+https://sicpebook.wordpress.com/ebook/
+http://sarabander.github.io/sicp/
+https://www.quora.com/Where-did-we-go-wrong-Why-didnt-Common-Lisp-fix-the-world
+https://xkcd.com/297/
+https://xkcd.com/224/
+
+Ler capítulo 0 de:
+
+- S. Dasgupta, C. H. Papadimitriou, and U. V. Vazirani,
+  Algorithms. 2006.
+
+#+BEGIN_SRC lisp
+(loop for x from 1 to 1000 collect
+	       (let ((a (+ (* 2.0 x) 20))
+		     (b (* x x)))
+		 (/ a b)))
+#+END_SRC 
+

@@ -33,7 +33,7 @@ passado para =sqrt=.
         (list guess inters)
         (sqrt-iter (improve guess) guess (+ 1 inters))))
   
-  (sqrt-iter x (improve 1.0 x) 1.0 0))
+  (sqrt-iter (improve 1.0) 1.0 0))
 #+END_SRC
 
 Uma primeira implementação de fatorial é apresenta a seguir. A função
