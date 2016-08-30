@@ -1,4 +1,5 @@
 #+Title: Aula 01
+#+Date: 2016-07-25
 
 Falamos sobre o curso, avaliação, participação dos alunos, controle de
 faltas etc.

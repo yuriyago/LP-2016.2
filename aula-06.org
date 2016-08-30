@@ -1,0 +1,12 @@
+#+Title: Aula 05
+#+Date: 2016-08-29
+
+Seções 1.3.1 e 1.3.2
+
+Funções podem ser passadas como argumentos. Este tipo de mecanismo
+permite a criação de abstrações ainda mais ricas. Nos exemplos, vimos
+como implementar um somatório parametrizado pela função a ser aplicada
+a cada elemento e o incremento entre elementos do intervalo.
+
+Vimos a construção =lambda= para criação de funções anônimas e a
+construção =let= para criação de variáveis locais. 

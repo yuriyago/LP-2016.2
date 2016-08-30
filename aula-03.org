@@ -1,4 +1,5 @@
 #+Title: Aula 03
+#+Date: 2016-07-29
 
 Encapsulamento das função auxiliares é uma forma de manter o código
 mais organizado e de fácil entendimento. Notem que =good-enough?= é um

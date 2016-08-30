@@ -1,4 +1,5 @@
 #+Title: Aula 04
+#+Date: 2016-08-01
 
 https://sicpebook.wordpress.com/ebook/
 http://sarabander.github.io/sicp/
