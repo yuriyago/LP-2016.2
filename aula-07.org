@@ -51,7 +51,7 @@ ou ainda
 
 Outro procedimento de alta-ordem interessante é o método para
 encontrar o /fixed-point/ de uma função, isto é, o $x$ tal que
-$f(x)=x$.
+$$f(x)=x$$.
 
 #+BEGIN_SRC scheme
 (define tolerance 0.00001)
