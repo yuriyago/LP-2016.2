@@ -1,0 +1,104 @@
+#+Title: Aula 06
+#+Date: <2016-08-31 Wed>
+
+Depois de discutirmos o exercício 1.29 ...
+
+Funções de alta-ordem, função que recebem funções como argumentos são
+formas bastante ricas para construção de abstrações. Métodos gerais de
+computação podem ser implementados idenpendentemente da função
+particular envolvida. Como primeiro exemplo, temos o método para
+encontrar a raiz de uma equação usando intervalo médio.
+
+#+BEGIN_SRC scheme
+  (define (close-enough? x y)
+    (< (abs (- x y)) 0.001))
+
+  (define (search f neg-point pos-point)
+    (let ((midpoint (average neg-point pos-point)))
+      (if (close-enough? neg-point pos-point)
+          midpoint
+          (let ((test-value (f midpoint)))
+            (cond ((positive? test-value)
+                   (search f neg-point midpoint))
+                  ((negative? test-value)
+                   (search f midpoint pos-point))
+                  (else midpoint))))))
+
+  (define (half-interval-method f a b)
+    (let ((a-value (f a))
+          (b-value (f b)))
+      (cond ((and (negative? a-value) (positive? b-value))
+             (search f a b))
+            ((and (negative? b-value) (positive? a-value))
+             (search f b a))
+            (else
+             (error "Values are not of opposite sign" a b)))))
+#+END_SRC
+
+Exemplos de uso do método =half-interval-method= seguem abaixo:
+
+#+BEGIN_SRC scheme
+(half-interval-method sin 2.0 4.0)
+#+END_SRC
+
+ou ainda 
+
+#+BEGIN_SRC scheme
+(half-interval-method (lambda (x) (- (* x x x) (* 2 x) 3))
+                      1.0
+                      2.0)
+#+END_SRC
+
+Outro procedimento de alta-ordem interessante é o método para
+encontrar o /fixed-point/ de uma função, isto é, o $x$ tal que
+$f(x)=x$.
+
+#+BEGIN_SRC scheme
+(define tolerance 0.00001)
+
+(define (fixed-point f first-guess)
+  (define (close-enough? v1 v2)
+    (< (abs (- v1 v2)) tolerance))
+  (define (try guess)
+    (let ((next (f guess)))
+      (if (close-enough? guess next)
+          next
+          (try next))))
+  (try first-guess))
+#+END_SRC
+
+O /fixed-point/ da equação $y = sin y + cos y$, por exemplo, é dado por:
+
+#+BEGIN_SRC scheme
+(fixed-point (lambda (y) (+ (sin y) (cos y)))
+             1.0)
+#+END_SRC
+
+Finalmente, podemos reinterpretar o problema de achar a raiz de um
+número como um problema de /fixed-point/ dado que a raiz de um número
+$x$ é um valor $y$ tal que $y^2=x$, logo $y = x/y$.
+
+#+BEGIN_SRC scheme
+(define (sqrt x)
+  (fixed-point (lambda (y) (/ x y))
+               1.0))
+#+END_SRC
+
+No entanto, esta definição tem um problema, não converge. Se o
+primeiro chute for $y_1$, o próximo será $y_2 = x/y_1$ e o seguinte
+será $y_3 = x/y_2 = x / (x / y_1) = y_1$, logo o processo irá ocilar
+entre $y_1$ e $y_2$ sem convergir.
+
+Uma solução simples para este problema é aplicar uma transformação na
+equação $y = x/y$ gerando a equação $y = (y + x/y)/2$ (adição de $y$
+em ambos os lados e divisão por dois). Esta nova função converge:
+
+#+BEGIN_SRC scheme
+(define (sqrt x)
+  (fixed-point (lambda (y) (average y (/ x y)))
+               1.0))
+#+END_SRC
+
+O próximo passo natural é generalizar este procedimento de
+transformação de funções para cálculo do /fixed-point/, vide final do
+capítulo 1.
