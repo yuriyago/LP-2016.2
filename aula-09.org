@@ -1,0 +1,145 @@
+#+Title: Aula 09
+#+Date: <2016-09-05 Mon>
+
+Continuamos capítulo 2. Definições de funções em Scheme são açucar
+sintático para definição de nomes para formas lambda.
+
+#+BEGIN_SRC scheme
+  (define (soma  a b)
+    (+ a b))
+
+  (define soma (lambda (a b)
+                 (+ a b)))
+#+END_SRC
+
+O valor da sintaxe de Lisp começa a ficar evidente quando queremos
+manipular trechos de código e pensar em meta-programação. Como, por
+exemplo, manipular a definição de uma função para recuperar o /corpo/
+dela? Em Scheme
+
+#+BEGIN_SRC scheme
+(cdr (cdr '(define (soma  a b)
+          (+ a b))))
+  '((+ a b))
+#+END_SRC
+
+E isto é bem diferente de tentarmos manipular o código como /string/ com:
+
+#+BEGIN_SRC scheme
+(??? "(define (soma  a b)
+          (+ a b)))")
+#+END_SRC
+
+O primeiro exemplo do capítulo 2 fala da definição do tipo de dados
+dos racionais e operações sobres os racionais. O aspecto mais
+importante é perceber que podemos definir as operações sobre um tipo
+de dados mesmo antes dos construtores deste tipo.
+
+#+BEGIN_SRC scheme
+(define (add-rat x y)
+  (make-rat (+ (* (numer x) (denom y))
+               (* (numer y) (denom x)))
+            (* (denom x) (denom y))))
+(define (sub-rat x y)
+  (make-rat (- (* (numer x) (denom y))
+               (* (numer y) (denom x)))
+            (* (denom x) (denom y))))
+(define (mul-rat x y)
+  (make-rat (* (numer x) (numer y))
+            (* (denom x) (denom y))))
+(define (div-rat x y)
+  (make-rat (* (numer x) (denom y))
+            (* (denom x) (numer y))))
+(define (equal-rat? x y)
+  (= (* (numer x) (denom y))
+     (* (numer y) (denom x))))
+#+END_SRC
+
+Vimos duas formas possíveis de definir os construtores de racionais:
+
+#+BEGIN_SRC scheme
+(define (make-rat n d) (cons n d))
+(define (numer x) (car x))
+(define (denom x) (cdr x))
+#+END_SRC
+
+Ou ainda, renomeando as funções de Scheme como abaixo.
+
+#+BEGIN_SRC scheme
+(define make-rat cons)
+(define numer car)
+(define denom cdr)
+#+END_SRC
+
+Em seguida, explorarmos a vantagem desta /disciplina/ na definição de
+tipos através de abstrações em camadas. Para garantir que os racionais
+sempre sejam apresentados na sua forma /normal/ mais reduzida, temos
+duas alternativas. A primeira abaixo, é garantir que na construção de
+um novo racional, os termos sejam reduzidos:
+
+#+BEGIN_SRC scheme
+(define (gcd a b)
+  (if (= b 0)
+      a
+      (gcd b (remainder a b))))
+
+(define (make-rat n d) (cons n d))
+
+(define (make-rat n d)
+  (let ((g (gcd n d)))
+    (cons (/ n g) (/ d g))))
+#+END_SRC
+
+A segunda seria fazer as reduções no momento do acesso aos componentes
+de um racional:
+
+#+BEGIN_SRC scheme
+(define (make-rat n d)
+  (cons n d))
+
+(define (numer x)
+  (let ((g (gcd (car x) (cdr x))))
+    (/ (car x) g)))
+
+(define (denom x)
+  (let ((g (gcd (car x) (cdr x))))
+    (/ (cdr x) g)))
+#+END_SRC
+
+Ambas as alternativas são equivalentes. Como provar isso?
+
+Finalmente, a capacidade da linguagem de ter funções como tipos de
+dados que podem ser passadas e retornadas como argumentos, nos dá
+possibilidades bem interessantes. Por exemplo, vimos que =cons=
+poderia ser implementada com:
+
+#+BEGIN_SRC scheme
+(define (cons x y)
+  (define (dispatch m)
+    (cond ((= m 0) x)
+          ((= m 1) y)
+          (else (error "Argument not 0 or 1 -- CONS" m))))
+  dispatch)
+
+(define (car z) (z 0))
+
+(define (cdr z) (z 1))
+#+END_SRC
+
+E de forma ainda mais reduzida com:
+
+#+BEGIN_SRC scheme
+
+(define (cons x y)
+  (lambda (m) (m x y)))
+
+(define (car z)
+  ((z (lambda (p q) p)))
+
+(define (cdr z)
+  (z (lambda (p q) q)))
+#+END_SRC
+
+Qual a diferença das duas abordagens? Notem como o /armazanamento/ dos
+valores é feito na definição das funções usando o escopo léxico.
+

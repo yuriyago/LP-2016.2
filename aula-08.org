@@ -1,0 +1,6 @@
+#+Title: Aula 08
+#+Date: <2016-09-02 Fri>
+
+Começamos capítulo 2 introducindo a motivação para estudarmos
+abstrações com dados.
+
