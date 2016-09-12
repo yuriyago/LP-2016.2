@@ -1,0 +1,71 @@
+#+Title: Aula 10
+#+Date: <2016-09-09 Fri>
+
+Usando =cons= podemos contruir estruturas de dados hierarquicas e
+recursivas como listas. Várias funções auxiliares para operarem com
+listas foram vistas.
+
+A primeira delas, a =list-ref=, definida de forma recursiva e
+implementa um processo interativo (tail recursion):
+
+#+BEGIN_SRC scheme
+(define (list-ref items n)
+  (if (empty? items)
+      empty
+      (if (= n 0)
+          (car items)
+          (list-ref (cdr items) (- n 1)))))
+#+END_SRC
+
+Na sequência, falamos sobre o =append= e sua versão /tail recursive/.
+
+#+BEGIN_SRC scheme
+(define (append list1 list2)
+  (if (null? list1)
+      list2
+      (cons (car list1) (append (cdr list1) list2))))
+
+(define (append list1 list2)
+  (define (aux in out)
+    (if (null? in)
+        out
+        (aux (cdr in) (cons (car in) out))))
+  (aux (reverse list1) list2))
+#+END_SRC
+
+A função =reverse= também pode ser definida em função do =append=,
+vide:
+
+#+BEGIN_SRC scheme
+(define (reverse items)
+  (define (aux items out)
+    (if (empty? items)
+        out
+        (aux (cdr items) (cons (car items) out))))
+  (aux items empty))
+
+(define (reverse items)
+  (if (empty? items)
+      empty
+      (append (reverse (cdr items)) (list (car items)))))
+#+END_SRC
+
+Finalmente, vimos pelo menos 3 formas de definir a função =last-pair=,
+são elas:
+
+#+BEGIN_SRC scheme
+(define (last-pair items)
+  (car (reverse items)))
+
+(define (last-pair-1 items)
+  (let ((len (length items)))
+    (list-ref items (- len 1))))
+
+(define (last-pair-2 items)
+  (define (aux items last)
+    (if (empty? items)
+        last
+        (aux (cdr items) (car items))))
+  (aux items empty))
+#+END_SRC
+

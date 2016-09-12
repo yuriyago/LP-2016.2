@@ -1,0 +1,98 @@
+#+Title: Aula 10
+#+Date: <2016-09-12 Mon>
+
+Continuando com funções simples que trabalham sobre dados
+estruturados:
+
+#+BEGIN_SRC scheme
+(define (reverse items)
+  (if (empty? items)
+      empty
+      (append (reverse (cdr items)) (list (car items)))))
+#+END_SRC
+
+Em seguida, =map= é uma função especialmente útil para operar sobre
+listas. Usando =map=, podemos reimplementar a função =scale-list= de
+forma bem simples.
+
+#+BEGIN_SRC scheme
+(define (scale-list items factor)
+  (if (null? items)
+      empty
+      (cons (* (car items) factor)
+            (scale-list (cdr items) factor))))
+#+END_SRC
+
+Vide
+
+#+BEGIN_SRC scheme
+(define (map proc items)
+  (if (null? items)
+      empty
+      (cons (proc (car items))
+            (map proc (cdr items)))))
+
+(define (scale-list items factor)
+  (map (lambda (n) (* n factor)) items))
+#+END_SRC
+
+Listas podem conter listas formando árvores. Algumas funções úteis
+para estruturas alinhadas:
+
+#+BEGIN_SRC scheme
+(define (deep-reverse items)
+  (if (empty? items)
+      empty
+      (append (deep-reverse (cdr items))
+              (list (if (pair? (car items))
+                        (deep-reverse (car items))
+                        (car items))))))
+
+#+END_SRC
+
+Versão interativa, com recursão de cauda:
+
+#+BEGIN_SRC scheme
+(define (deep-reverse i)
+  (define (aux items out)
+    (if (list? items)
+        (if (null? items)
+            out
+            (aux (cdr items) (cons (aux (car items) empty) out)))
+        items))
+  (aux i empty))
+#+END_SRC
+
+Enquanto =map= acumula respostas formando uma lista de saída,
+=for-each= apenas executa a função passada para cada item sem acumular
+respostas:
+
+#+BEGIN_SRC scheme
+#lang racket
+
+(define (for-each proc items)
+  (define (aux proc dummy items)
+    (if (null? items)
+        true
+        (aux proc (proc (car items)) (cdr items))))
+  (aux proc empty items))
+
+(for-each writeln (list 1 2 3 5))
+#+END_SRC
+
+#+RESULTS:
+: 1
+: 2
+: 3
+: 5
+: #t
+
+Vimos também a função =count-leaves=:
+
+#+BEGIN_SRC scheme
+(define (count-leaves x)
+  (cond ((null? x) 0)  
+        ((not (pair? x)) 1)
+        (else (+ (count-leaves (car x))
+                 (count-leaves (cdr x))))))
+#+END_SRC
