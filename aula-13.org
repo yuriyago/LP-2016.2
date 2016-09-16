@@ -6,4 +6,5 @@
 
 - https://br.udacity.com/course/how-to-use-git-and-github--ud775/
 - http://programminghistorian.org/lessons/
+- https://medium.com/laws-of-the-digital-domain/a-modern-toolchain-for-lawyers-738a2ecb6893#.x5pgu7ess
 
