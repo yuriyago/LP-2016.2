@@ -8,3 +8,6 @@
 
 Mais referências no site do https://git-scm.com e em
 https://help.github.com.
+
+Sugestões de material complementar vinda dos alunos da disciplina:
+- Tutorial com terminal interativo online sobre o Git : https://try.github.io/  (aplicação feita pelo site Code School em parceria com o Github)
