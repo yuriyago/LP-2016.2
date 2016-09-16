@@ -1,4 +1,4 @@
-#+Title: Aula 10
+#+Title: Aula 11
 #+Date: <2016-09-12 Mon>
 
 Continuando com funções simples que trabalham sobre dados
