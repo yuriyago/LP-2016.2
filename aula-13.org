@@ -15,7 +15,7 @@ https://help.github.com.
   https://try.github.io/, aplicação feita pelo site Code School em
   parceria com o Github.
 
-*Material Complementar (Video como Forkar um projeto)
+* Material Complementar (Video como Forkar um projeto)
 
 - Tutorial de como Forkar um projeto e enviar para o github
 - Pule a parte que ele fala sobre javascript.
