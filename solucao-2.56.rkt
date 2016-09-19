@@ -43,8 +43,6 @@
 (define (make-exponentiation b e)
   (cond ((=number? e 1) b)
         ((=number? e 0) 1)
-        ((and (number? b)
-              (number? e)))
         (else (list '** b e))))
 
 (define (exponentiation? e)
