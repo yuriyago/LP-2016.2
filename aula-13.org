@@ -15,16 +15,12 @@ https://help.github.com.
   https://try.github.io/, aplicação feita pelo site Code School em
   parceria com o Github.
 
-* Material Complementar (Video como Forkar um projeto)
+- Tutorial de como Forkar um projeto e enviar para o github. Pule a
+  parte que ele fala sobre javascript:
+  https://www.youtube.com/watch?v=BEZu577eQmM
 
-- Tutorial de como Forkar um projeto e enviar para o github
-- Pule a parte que ele fala sobre javascript.
-https://www.youtube.com/watch?v=BEZu577eQmM
+- Criando chave no Linux (Para poder fazer o commit):
+  https://help.github.com/articles/set-up-git/
 
-* Criando chave no Linux (Para poder fazer o commit)
--https://help.github.com/articles/set-up-git/
-
-
-* Como Fazer Pull Request
--https://www.youtube.com/watch?v=E8MPe6tCMo8
+- Como Fazer Pull Request https://www.youtube.com/watch?v=E8MPe6tCMo8
 
