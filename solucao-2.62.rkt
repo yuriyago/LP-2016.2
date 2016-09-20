@@ -1,6 +1,5 @@
 #lang racket
 
-(require racket/trace)
 
 (define (element-of-set? x set)
   (cond ((null? set) false)
@@ -20,5 +19,3 @@
                  ((< x2 x1)
                   (cons x2 (union-set set1
                                       (cdr set2)))))))))
-
-(trace union-set)
