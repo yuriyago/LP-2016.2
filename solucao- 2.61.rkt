@@ -1,4 +1,5 @@
 #lang racket
+(define (adjoin-set x set)
   (cond
     ((empty? set) (list x))
     ((< x (car set)) (cons x set))
