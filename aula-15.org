@@ -1,0 +1,39 @@
+#+Title: Aula 15
+#+Date: <2016-09-19 Mon>
+
+
+
+https://help.github.com/articles/fork-a-repo/
+
+1. fork
+2. config localmente o upstream
+
+#+BEGIN_SRC bash
+git remote add upstream https://github.com/octocat/Spoon-Knife.git
+#+END_SRC
+
+3. criei novo branch de trabalho
+
+#+BEGIN_SRC bash
+git checkout -b test
+#+END_SRC
+
+4. fiz modificacoes e commit
+
+5. mudo para o master e me atualizo
+
+#+BEGIN_SRC bash
+git checkout master
+git pull upstream master
+#+END_SRC
+
+6. merge do branch de trabalho com o master
+
+7. push para meu repo no github do master
+
+#+BEGIN_SRC bash
+git push origin master
+#+END_SRC
+
+8. no github novo PR...
+

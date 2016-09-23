@@ -1,6 +1,7 @@
 #lang racket
 
 (define (variable? x) (symbol? x))
+
 (define (=number? exp num)
   (and (number? exp) (= exp num)))
 
@@ -9,7 +10,6 @@
        (variable? v2)
        (eq? v1 v2)))
 
-;(define (make-sum a1 a2) (list '+ a1 a2))
 (define (make-sum a1 a2)
   (cond ((=number? a1 0) a2)
         ((=number? a2 0) a1)
@@ -18,14 +18,14 @@
         (else (list a1 '+ a2))))
 
 (define (sum? x)
-  (and (pair? x) (eq? (cadr x) '+)))
+  (and (pair? x)
+       (eq? (cadr x) '+)))
 
 (define (addend s) (car s))
-(define (augend s) (if (empty? (cdddr s))
-                       (caddr s)
-                       (append (list '+ (caddr s)) (cdddr s))))
 
-;(define (make-product m1 m2) (list '* m1 m2))
+(define (augend s)
+  (caddr s))
+
 (define (make-product m1 m2)
   (cond ((or (=number? m1 0) 
              (=number? m2 0)) 
@@ -41,11 +41,8 @@
 
 (define (multiplier p) (car p))
 
-(define (multiplicand p) (if (empty? (cdddr p))
-                       (caddr p)
-                       (append (list (caddr p) '*) (cdddr p))))
-
-
+(define (multiplicand p)
+  (caddr p))
 
 (define (deriv exp var)
   (cond ((number? exp) 0)
