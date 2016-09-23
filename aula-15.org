@@ -1,7 +1,5 @@
 #+Title: Aula 15
-#+Date: <2016-09-19 Mon>
-
-
+#+Date: <2016-09-21 Wed>
 
 https://help.github.com/articles/fork-a-repo/
 
