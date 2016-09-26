@@ -6,27 +6,14 @@
   (and (variable? v1) (variable? v2)
        (eq? v1 v2)))
 
-; (define (make-sum a1 a2) `(+ ,a1 ,a2))
-
 (define (=number? exp num)
   (and (number? exp) (= exp num)))
   
-(define (expt b n)
-  (define (expt-iter a b n)
-    (cond ((= n 0) a)
-          ((even? n)
-           (expt-iter a (sqr b) (/ n 2)))
-          (else
-           (expt-iter (* a b) b (- n 1)))))
-  (expt-iter 1 b n))
-
 (define (make-sum a1 a2)
   (cond ((=number? a1 0) a2)
         ((=number? a2 0) a1)
         ((and (number? a1) (number? a2)) (+ a1 a2))
         (else (list '+ a1 a2))))
-
-; (define (make-product m1 m2) `(* ,m1 ,m2))
 
 (define (make-product m1 m2)
   (cond ((or (=number? m1 0) (=number? m2 0)) 0)
