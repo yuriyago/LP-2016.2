@@ -10,6 +10,15 @@
 
 (define (=number? exp num)
   (and (number? exp) (= exp num)))
+  
+(define (expt b n)
+  (define (expt-iter a b n)
+    (cond ((= n 0) a)
+          ((even? n)
+           (expt-iter a (sqr b) (/ n 2)))
+          (else
+           (expt-iter (* a b) b (- n 1)))))
+  (expt-iter 1 b n))
 
 (define (make-sum a1 a2)
   (cond ((=number? a1 0) a2)
@@ -40,17 +49,18 @@
 
 (define (multiplicand p) (caddr p))
 
-(define (make-exponent base exp)
-  ...)
+(define (make-exponent base exponent)
+  (cond ((or (=number? exponent 0) (=number? base 1)) 1) 
+        ((=number? base 0) 0)
+        ((and (number? base) (number? exponent)) (expt base exponent))
+        (else (list '** base exponent))))
 
 (define (exponent? exp)
-  ...)
+  (and (pair? exp) (eq? (car exp) '**)))
 
-(define (base exp)
-  ...)
+(define (base exp) (cadr exp))
 
-(define (exponent exp)
-  ...)
+(define (exponent exp) (caddr exp))
 
 (define (deriv exp var)
   (cond ((number? exp) 0)
@@ -69,7 +79,7 @@
          (let ((b (base exp))
                (e (exponent exp)))
            (make-product e (make-product (make-exponent b (- e 1))
-                                         (deriv b var))))
+                                         (deriv b var)))))
          (else
           (error "unknown expression type -- DERIV" exp))))
   
