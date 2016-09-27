@@ -1,4 +1,5 @@
 #lang racket
+
 (define (lookup given-key set-of-records)
   (cond ((null? set-records) false)
         ((= given-key (key (entry set-of-records)))

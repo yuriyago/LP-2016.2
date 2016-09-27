@@ -1,4 +1,5 @@
 #lang racket
+
 (define (union-set tree1 tree2)
   (define (union-set-l list1 list2)
     (cond ((null? list1) list2)
@@ -37,8 +38,11 @@
                                   (tree->list-2 tree2))))
 
 (define (entry tree) (car tree))
+
 (define (left-branch tree) (cadr tree))
+
 (define (right-branch tree) (caddr tree))
+
 (define (make-tree entry left right)
   (list entry left right))
 
@@ -122,3 +126,4 @@
                                  left-tree 
                                  right-tree)
                       remaining-elts))))))))
+		      
