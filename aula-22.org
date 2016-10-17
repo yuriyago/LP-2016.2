@@ -33,6 +33,7 @@ E =values= também existe em Racket.
 Sobre https://goo.gl/H2qnNs, vale muito ler o trecho abaixo, ver a
 solução do block-scanner e pensar sobre:
 
+#+BEGIN_QUOTE
    Unfortunately, most lisp programming books don't provide realistic
    examples of closure usage, leaving readers with the inaccurate
    impression that closures are only good for toy examples like
@@ -58,5 +59,4 @@ solução do block-scanner e pensar sobre:
    state between the scanning of each block because it is possible
    that the sequence we are scanning for will be split between two (or
    more) blocks.
-
-
+#+END_QUOTE

@@ -7,9 +7,11 @@ abaixo. Mostrei exemplo do Org-Mode do Emacs. Em Racket existe o
 
 Sobre a nota https://goo.gl/5ti6TM 
 
+#+BEGIN_QUOTE
   In fact, we suspect that these problems cannot be adequately
   addressed in terms of computer-language design alone, without also
   drawing on work in knowledge representation and automated reasoning.
+#+END_QUOTE
 
 Por que knowledge representation? Bem, vejam que o exemplo que o livro
 usa são números e operação sobre números. Eles constituem uma classe
@@ -30,9 +32,11 @@ automated reasoning... bem, aqui a coisa fica mais interessante.
 
 Sobre literate programming e https://goo.gl/x93rjP que diz:
 
+#+BEGIN_QUOTE
   We will not attempt to develop a complete algebraic-manipulation
   system here. Such systems are exceedingly complex programs,
   embodying deep algebraic knowledge and elegant algorithms.
+#+END_QUOTE
 
 Vale assistir:
 
