@@ -1,4 +1,5 @@
 #lang racket
+
 (define (apply-generic op . args) 
   (define (no-method type-tags) 
     (error "No method for these types" 
