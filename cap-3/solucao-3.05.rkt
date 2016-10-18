@@ -1,6 +1,8 @@
 #lang racket
 ;Dados pelo problema
 
+(require rackunit)
+
 (define (monte-carlo trials experiment)
   (define (iter trials-remaining trials-passed)
     (cond ((= trials-remaining 0)
@@ -29,6 +31,4 @@
 (define square
   (lambda (x) (* x x)))
 
-(estimate-pi)
-
-
+(check-true (<= (abs (- (estimate-pi) 0.2)) 2.98836))
