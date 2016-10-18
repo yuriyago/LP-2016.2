@@ -31,4 +31,4 @@
 (define square
   (lambda (x) (* x x)))
 
-(check-true (<= (abs (- (estimate-pi) 0.2)) 2.98836))
+(check-true (<= (abs (- (estimate-pi) 3.1416)) 0.2))
