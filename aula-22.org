@@ -9,7 +9,11 @@ https://pkgs.racket-lang.org
 Isto seria um excelente resultado para os projetos além de apenas um
 relatório acompanhado de um código que não terá uso depois do
 curso. Alternativamente, os grupos podem tentar contribuir com algum
-projeto já existente.
+projeto já existente. Notem que para efetivamente distribuir um código
+que potencialmente poderá ser organizado em vários arquivos, será
+necessário entender o que são módulos e pacotes:
+
+https://docs.racket-lang.org/guide/modules.html
 
 Como eu disse em sala, o LoL (https://goo.gl/H2qnNs) usa values para
 isso. Para saber mais como lidar com =values=, vejam
