@@ -12,8 +12,8 @@ para reproduzir em Racket os códigos da aula anterior.
         (raise #t #t)))
 
   (define (main)
-    (with-handlers ([number? (lambda (n)
-                              (+ n 5))]
+    (with-handlers ((number? (lambda (n)
+                              (+ n 5)))
                     (boolean?
                      (lambda (s) s)))
                    (teste "exemplo!")))
