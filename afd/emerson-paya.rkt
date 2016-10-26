@@ -76,3 +76,34 @@
       (if (equal? label '|#|)
           (list tape)
           nil)))
+
+(define (generate-move label tape)
+  (if (list? label)
+      (let ((results
+        (map (newinput) (recognize-move (car label) (car tape))
+             (map (newoutput) (generate-move (cadr label) (cadr tape)))
+                  (set results (cons (list newinput newoutput) results)))))
+        results)
+      (if (equal? label '|#|)
+          (list tape)
+          (if (assoc label  abbreviations)
+              (generate-move-list (cdr (assoc label abbreviations)) tape)))))
+(define (generate-move-list labels tape)
+  (if (null? labels)
+      nil
+      (append (generate-move (car labels) tape)
+              (generate-move-list (cdr labels) tape))))
+
+
+(define (generate-next node tape network)
+  (if (and (null? (car tape))
+           (member node (final-nodes network)))
+      (raise exit-handler (cadr tape))
+      (map (transition (transitions network))
+           (if (equal? node (trans-node transition))
+               (map (newtape (generate-move (trans-label transition) tape))
+                    (generate-next (trans-newnode transition) newtape network))))))
+
+(define (generate network)
+  (map (initialnode (initial-nodes network))
+       (generate-next initialnode nil network)))
