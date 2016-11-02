@@ -4,7 +4,7 @@
 Hoje revisamos uma breve explicação sobre os problemas decorrentes de
 usarmos o modelo de estados e atribuição de valores. Revisamos os
 problemas que temos ao permitir que eventualmente uma função que
-altere um estado ou seja influênciada por um estado seja executada de
+altere um estado ou seja influenciada por um estado seja executada de
 forma concorrente. Também falamos sobre /streams/ apresentando o
 código abaixo.
 
@@ -88,7 +88,7 @@ A implementação completa que vimos nas aulas de /streams/ em Racket segue abai
 
 Os alunos interessados podem comparar o tempo de processamento da
 implementação com /streams/ versus a implementação com listas comuns
-abaixo, falta apenas o código da =enumerate-interal=:
+abaixo:
 
 #+BEGIN_SRC scheme
 #lang racket
@@ -103,10 +103,19 @@ abaixo, falta apenas o código da =enumerate-interal=:
           (else (iter (+ count 1) accum))))
 (iter a 0))
 
+(define (reverse list)
+  (define (rev-iter list new-list)
+    (if (null? list)
+        new-list
+        (rev-iter (cdr list) (cons (car list) new-list))))
+  (rev-iter list empty))
+
 (define (enumerate-interval l h)
-  (if (> l h)
-      empty
-      (cons l (enumerate-interval (+ l 1) h))))
+  (define (enumerate-int-iter l h new-list)
+    (if (> l h)
+        (reverse new-list)
+        (enumerate-int-iter (+ 1 l) h (cons l new-list))))
+  (enumerate-int-iter l h empty))
 
 
 (car (cdr (filter prime? (enumerate-interval 10000 1000000))))
