@@ -2,18 +2,14 @@
 #+Author: Gustavo Cavaliere
 
 
-Exercise 1.35. Show that the golden ratio (section 1.2.2) is a fixed point of the transformation x--> 1
-+ 1/x, and use this fact to compute by means of the fixed-point procedure.
-
-Temos que relembrar (a) a funcao "fixed-point" e a razao áurea:
-
-
+Show that the golden ratio (section 1.2.2) is a fixed point of the
+transformation =x --> 1 + 1/x=, and use this fact to compute by means
+of the fixed-point procedure. Temos que relembrar (a) a funcao
+"fixed-point" e a razao áurea:
 
 #+BEGIN_SRC scheme
-
-#lang racket
-
 (define tolerance 0.00001)
+
 (define (fixed-point f first-guess)
   (define (close-enough? v1 v2)
     (< (abs (- v1 v2)) tolerance))
@@ -25,30 +21,17 @@ Temos que relembrar (a) a funcao "fixed-point" e a razao áurea:
   (try first-guess))
 
 (define ouro (/ (+ 1 (sqrt 5)) 2))
-
-
-
 #+END_SRC
 
-A partir daí, chamamos a funcao fixed-point com a expressao dada:
+A partir daí, chamamos a funcao fixed-point com a expressao dada. Para
+testar, usei a biblioteca rackunit - considerei 0.00001 uma boa margem
+de erro:
 
 #+BEGIN_SRC scheme
+  (require rackunit)
 
-(fixed-point (lambda (x) (+ 1 (/ 1 x))) 1.0)
+  (fixed-point (lambda (x) (+ 1 (/ 1 x))) 1.0)
 
-
-#+END_SRC scheme
-
-Para testar, usei a biblioteca rackunit - considerei 0.00001 uma boa margem de erro:
-
-
-#+BEGIN_SRC scheme
-
-(require rackunit)
-
-(check-= (fixed-point (lambda (x) (+ 1 (/ 1 x))) 1.0) ouro 0.00001 "falso")
-
-
-
-#+END_SRC scheme
-
+  (check-= (fixed-point (lambda (x) (+ 1 (/ 1 x))) 1.0)
+	   ouro 0.00001 "falso")
+#+END_SRC
