@@ -1,6 +1,6 @@
 #lang racket
 
-; segunda versão do exercício 2.54 que passa em todos os test cases
+;; segunda versão do exercício 2.54 que passa em todos os test cases
 
 (require racket/trace rackunit)
 
@@ -13,6 +13,7 @@
         ((or (cons? a) (cons? b)) #f)
         (else (eq? a b))))
 
+
 ;;;;;;;;;;;;;;;;;;;
 ;;;;;; TESTS ;;;;;;
 ;;;;;;;;;;;;;;;;;;;
@@ -20,5 +21,5 @@
 (check-true (equal? '(1 2 3 (4 5) 6) '(1 2 3 (4 5) 6)))
 (check-false (equal? '(1 2 3 (4 5) 6) '(1 2 3 (4 5 7) 6)))
 (check-true (equal? '(isso é uma lista) '(isso é uma lista)))
-(check-false (equal? '(isso é uma lista) '(isso é uma lista (com outra lista) no meio)))
-
+(check-false (equal? '(isso é uma lista)
+		     '(isso é uma lista (com outra lista) no meio)))
