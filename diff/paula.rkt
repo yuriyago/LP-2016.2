@@ -1,11 +1,12 @@
 #lang racket
 
-(require levenshtein)
-(require htdp/matrix)
-(define (distance a b)
-  (string-levenshtein a b))
+;;; EXERCÍCIO 1 DE 3 (DISTANCE) ;;;
 
-(define (difference lst-1 lst-2)
+(require levenshtein) ;biblioteca necessária para calcular distância
+(require htdp/matrix) ;biblioteca necessária para formar a matriz
+(define (distance a b) ;função auxiliar para "difference"
+  (string-levenshtein a b))
+(define (difference lst-1 lst-2) ;função principal
   (let ((p (length lst-1)))
     (define (auxdiff lst-1 lst-2 out)
       (if (null? lst-1)

@@ -41,11 +41,6 @@
         (lol-aux (cdr lol) (append res (car lol)))))
   (lol-aux lol empty))
 
-
-
-
-
-
 (define (frequency-of-results results)
   (define (aux list-results list-frequencies)
     (if (empty? list-results)
