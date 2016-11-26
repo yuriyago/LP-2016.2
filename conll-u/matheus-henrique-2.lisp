@@ -5,6 +5,7 @@
     ("3" "the" "art" "4" "det") 
     ("4" "Pixar" "nnp" "2" "dobj")))
 
+
 (defun build-second-format (list)
        (build-2 (list-arrow list
 		      (node-root list))

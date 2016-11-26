@@ -1,15 +1,15 @@
 #+Title: Exercício 2.49
 #+Author: Alifer Sales
 
-Use segments->painter to define the following primitive painters:
+Use =segments->painter= to define the following primitive painters:
 
-a.  The painter that draws the outline of the designated frame.
+1. The painter that draws the outline of the designated frame.
 
-b.  The painter that draws an ``X'' by connecting opposite corners of 
-the frame.
+2. The painter that draws an ``X'' by connecting opposite corners of
+   the frame.
 
-c.  The painter that draws a diamond shape by connecting the midpoints 
-of the sides of the frame.
+3.  The painter that draws a diamond shape by connecting the midpoints
+   of the sides of the frame.
 
 * Funções utilizadas
 
@@ -37,7 +37,7 @@ A função =draw-line= não é implementada no livro.
 
 * Resolução
 
-** a.  The painter that draws the outline of the designated frame.
+The painter that draws the outline of the designated frame:
 
 #+BEGIN_SRC scheme
  (define outline->painter
@@ -51,7 +51,8 @@ A função =draw-line= não é implementada no livro.
                              (make-segment v2 v3)))))                         
 #+END_SRC
 
-** b.  The painter that draws an ``X'' by connecting opposite corners of the frame.
+The painter that draws an =X= by connecting opposite corners of the
+frame:
 
 #+BEGIN_SRC scheme
  (define diagonals->painter
@@ -63,7 +64,8 @@ A função =draw-line= não é implementada no livro.
                              (make-segment v0 v3)))))                         
 #+END_SRC
 
-** c.  The painter that draws a diamond shape by connecting the midpoints of the sides of the frame.
+The painter that draws a diamond shape by connecting the midpoints of
+the sides of the frame:
 
 #+BEGIN_SRC scheme
  (define diamond->painter
