@@ -1,8 +1,10 @@
+
 (defparameter *disney*
-'(("1" "Disney"  "nnp" "2"  "nsubj") 
- ("2" "acquired" "verb" "0" "root") 
- ("3" "the" "art" "4" "det") 
- ("4" "Pixar" "nnp" "2" "dobj")))
+  '(("1" "Disney"  "nnp" "2"  "nsubj") 
+    ("2" "acquired" "verb" "0" "root") 
+    ("3" "the" "art" "4" "det") 
+    ("4" "Pixar" "nnp" "2" "dobj")))
+
 
 (defun build-second-format (list)
        (build-2 (list-arrow list
